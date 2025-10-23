@@ -12,32 +12,32 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('member_status', function (Blueprint $table) {
+        Schema::create('post_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('code')->nullable()->unique();
             $table->string('label_en')->nullable();
             $table->string('label_th')->nullable();
             $table->timestamps();
         });
-        DB::statement('ALTER TABLE member_status ADD COLUMN image_data MEDIUMBLOB NULL AFTER label_th');
-        DB::table('member_status')->insert([
+        DB::statement('ALTER TABLE post_statuses ADD COLUMN image_data MEDIUMBLOB NULL AFTER label_th');
+        DB::table('post_statuses')->insert([
             [
                 'id' => 1,
-                'code' => '000',
-                'label_th' => 'ผู้พัฒนาระบบ',
-                'label_en' => 'developer'
+                'code' => '200',
+                'label_en' => 'enable',
+                'label_th' => 'เปิดใช้งาน'
             ],
             [
                 'id' => 2,
-                'code' => '101',
-                'label_th' => 'ผู้ดูแลระบบ',
-                'label_en' => 'admin'
+                'code' => '400',
+                'label_en' => 'disable',
+                'label_th' => 'ปิดใช้งาน'
             ],
             [
                 'id' => 3,
-                'code' => '404',
-                'label_th' => 'สมาชิก',
-                'label_en' => 'member'
+                'code' => '500',
+                'label_en' => 'ban',
+                'label_th' => 'ระงับ'
             ],
         ]);
     }
@@ -47,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('member_status');
+        Schema::dropIfExists('post_statuses');
     }
 };

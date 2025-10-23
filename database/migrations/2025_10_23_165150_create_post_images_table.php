@@ -12,9 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('member_profile_images', function (Blueprint $table) {
+        Schema::create('post_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_profile_id')->constrained('member_profiles')->onDelete('cascade');
+
+            $table->string('post_code')->nullable()->unique();
+            $table->foreign('post_code')->references('post_code')->on('posts')->onDelete('cascade');
 
             $table->string('image_name')->nullable(); // generate username - dd/mm/yyyy - hh:mm:ss
             $table->string('image_path')->nullable();
@@ -24,8 +26,8 @@ return new class extends Migration
 
             $table->timestamps();
         });
-        // DB::statement('ALTER TABLE member_profile_images ADD image_data MEDIUMBLOB NULL');
-        DB::statement('ALTER TABLE member_profile_images ADD COLUMN image_data MEDIUMBLOB NULL AFTER image_url');
+        // DB::statement('ALTER TABLE post_images ADD image_data MEDIUMBLOB NULL');
+        DB::statement('ALTER TABLE post_images ADD COLUMN image_data MEDIUMBLOB NULL AFTER image_url');
     }
 
     /**
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('member_profile_images');
+        Schema::dropIfExists('post_images');
     }
 };

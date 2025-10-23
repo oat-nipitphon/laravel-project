@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('member_profiles', function (Blueprint $table) {
             $table->id();
 
-            $table->string('member_code')->unique();
+            $table->string('member_code')->nullable()->unique();
             $table->foreign('member_code')->references('member_code')->on('members')->onDelete('cascade');
 
             $table->string('frist_name')->nullable();

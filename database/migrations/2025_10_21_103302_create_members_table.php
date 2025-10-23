@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('member_code')->unique(); // generate code dd-mm-yyyy register * or / dd-mm-yyy birth day
+            $table->string('member_code')->nullable()->unique(); // generate code dd-mm-yyyy register * or / dd-mm-yyy birth day
             $table->timestamps();
         });
     }

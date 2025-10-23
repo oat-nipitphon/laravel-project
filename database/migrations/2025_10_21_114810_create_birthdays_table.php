@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('birthdays', function (Blueprint $table) {
             $table->id();
 
-            $table->string('member_code'); // ต้องมี column ก่อนใช้ foreign key
+            $table->string('member_code')->nullable()->unique(); // ต้องมี column ก่อนใช้ foreign key
             $table->foreign('member_code')
                 ->references('member_code')
                 ->on('members')

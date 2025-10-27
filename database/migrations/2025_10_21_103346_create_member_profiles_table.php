@@ -14,15 +14,18 @@ return new class extends Migration
         Schema::create('member_profiles', function (Blueprint $table) {
             $table->id();
 
-            $table->string('member_code')->nullable()->unique();
-            $table->foreign('member_code')->references('member_code')->on('members')->onDelete('cascade');
+            $table->string('member_code')->nullable()->unique(); // ต้องมี column ก่อนใช้ foreign key
+            $table->foreign('member_code')
+                ->references('member_code')
+                ->on('members')
+                ->onDelete('cascade');
 
+            $table->foreignId('prefix_id')->nullable()->constrained('member_profile_prefixes')->onDelete('cascade'); // delete prefix set default null
             $table->string('frist_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('nick_name')->nullable();
 
-            $table->foreignId('status_id')->nullable()->constrained('member_status')->onDelete('cascade');
-            $table->foreignId('prefix_id')->nullable()->constrained('member_profile_prefixes')->onDelete('cascade'); // delete prefix set default null
+
 
             $table->timestamps();
         });

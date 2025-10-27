@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('member_profile_id')
                 ->constrained('member_profiles')
                 ->onDelete('cascade');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->string('post_code')->unique();
             $table->string('title');
             $table->text('content');
+
             $table->timestamps();
         });
     }

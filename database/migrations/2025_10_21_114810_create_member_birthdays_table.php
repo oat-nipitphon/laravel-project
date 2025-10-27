@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('birthdays', function (Blueprint $table) {
+        Schema::create('member_birthdays', function (Blueprint $table) {
             $table->id();
 
-            $table->string('member_code')->nullable()->unique(); // ต้องมี column ก่อนใช้ foreign key
-            $table->foreign('member_code')
-                ->references('member_code')
-                ->on('members')
-                ->onDelete('cascade');
+            $table->foreignId('member_profile_id')->constrained('member_profiles')->onDelete('cascade')->unique();
 
             $table->year('birth_year');
             $table->tinyInteger('birth_month');
